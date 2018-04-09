@@ -5,6 +5,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.http.Part;
 
@@ -14,6 +15,7 @@ public class FileHandler {
 	public static final int SIZE_TAMPON = 10240;
 	public static final String FILE_FOLDER = "C:\\Users\\John\\Downloads\\";
 	
+	public ArrayList<String> wholeFile = new ArrayList<>();
 	
 	   public void writeFile( Part part, String fileName, String spot ) throws IOException {
 	        BufferedInputStream entree = null;
@@ -25,6 +27,12 @@ public class FileHandler {
 	            byte[] tampon = new byte[SIZE_TAMPON];
 	            int longueur;
 	            while ((longueur = entree.read(tampon)) > 0) {
+	            	
+	            	// Writing to array to use it later ??
+	            	wholeFile.add(new String(tampon, 0, longueur));
+	            
+	            	System.out.println(new String(tampon, 0, longueur));
+	            	
 	                sortie.write(tampon, 0, longueur);
 	            }
 	        } finally {
