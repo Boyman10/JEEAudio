@@ -63,14 +63,28 @@ public class FileMe extends HttpServlet {
             fileName = fileName.substring(fileName.lastIndexOf('/') + 1)
                     .substring(fileName.lastIndexOf('\\') + 1);
 
-            // Store the file at home :
-            fh.writeFile(part, fileName, FileHandler.FILE_FOLDER);
-
-            request.setAttribute(fieldName, fileName);
+            if (fileIsValid(fileName)) {
+            
+	            // Store the file at home :
+	            fh.writeFile(part, fileName, FileHandler.FILE_FOLDER);
+	
+	            request.setAttribute(fieldName, fileName);
+            } else {
+            	// file not valid :
+            	request.setAttribute(fieldName, "ERROR");
+            }
         }
 
         this.getServletContext().getRequestDispatcher("/WEB-INF/fileme.jsp").forward(request, response);		
 	}
 
+	public boolean fileIsValid(String filename) {
+		
+		int pos = filename.lastIndexOf('.');
+		String extension = filename.substring(pos + 1);
+		if (extension.equals("srt"))
+			return true;
+		else return false;
+	}
  
 }

@@ -12,7 +12,7 @@ public class FileHandler {
 
 	// A few configuration parameters for file upload :
 	public static final int SIZE_TAMPON = 10240;
-	public static final String FILE_FOLDER = "/home/bob/Downloads/";
+	public static final String FILE_FOLDER = "C:\\Users\\John\\Downloads\\";
 	
 	
 	   public void writeFile( Part part, String fileName, String spot ) throws IOException {
