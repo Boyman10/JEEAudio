@@ -7,13 +7,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class SubtitlesHandler {
+	
 	private ArrayList<String> originalSubtitles = null;
 	private ArrayList<String> translatedSubtitles = null;
 
 	public SubtitlesHandler(String fileName) {
+		
 		originalSubtitles = new ArrayList<String>();
 		translatedSubtitles = new ArrayList<String>();
+		
 		BufferedReader br;
+		
 		try {
 			br = new BufferedReader(new FileReader(fileName));
 			String line;

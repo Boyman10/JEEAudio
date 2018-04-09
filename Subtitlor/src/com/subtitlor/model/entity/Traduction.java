@@ -16,6 +16,13 @@ public class Traduction {
 	private String language;
 	
 	/**
+	 * Empty constructor
+	 */
+	public Traduction() {
+		
+	}
+	
+	/**
 	 * Constructor class
 	 * @param id
 	 * @param seq
