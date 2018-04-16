@@ -19,7 +19,9 @@ public class EditSubtitle extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		ServletContext context = getServletContext();
+		
 		System.out.println(context.getRealPath(FILE_NAME));
+		
 		SubtitlesHandler subtitles = new SubtitlesHandler(context.getRealPath(FILE_NAME));
 		
 		request.setAttribute("subtitles", subtitles.getSubtitles());
