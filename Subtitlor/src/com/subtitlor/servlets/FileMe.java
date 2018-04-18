@@ -1,7 +1,9 @@
 package com.subtitlor.servlets;
 
+import java.io.File;
 import java.io.IOException;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -44,7 +46,9 @@ public class FileMe extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		 
 		FileHandler fh = new FileHandler();
-		
+		// get the temp context folder :
+		//File folder = (File) getServletContext().getAttribute(ServletContext.TEMPDIR);
+
 		
 		// We retrieve the description field :
         String description = request.getParameter("description");
@@ -66,7 +70,7 @@ public class FileMe extends HttpServlet {
             if (fileIsValid(fileName)) {
             
 	            // Store the file at home :
-	            fh.writeFile(part, fileName, FileHandler.FILE_FOLDER);
+	            fh.writeFile(part, fileName);
 	
 	            request.setAttribute(fieldName, fileName);
             } else {

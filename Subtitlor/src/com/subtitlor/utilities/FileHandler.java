@@ -13,16 +13,22 @@ public class FileHandler {
 
 	// A few configuration parameters for file upload :
 	public static final int SIZE_TAMPON = 10240;
-	public static final String FILE_FOLDER = "/Downloads/";
+	
+	// Storing folder from tmp to here :
+	public static final String FILE_FOLDER = "/home/bob/Downloads/";
+	
 	
 	public ArrayList<String> wholeFile = new ArrayList<>();
 	
-	   public void writeFile( Part part, String fileName, String spot ) throws IOException {
+	   public void writeFile( Part part, String fileName) throws IOException {
 	        BufferedInputStream entree = null;
 	        BufferedOutputStream sortie = null;
+	        
+	    	File myFile = new File(FILE_FOLDER, fileName);
+
 	        try {
 	            entree = new BufferedInputStream(part.getInputStream(), SIZE_TAMPON);
-	            sortie = new BufferedOutputStream(new FileOutputStream(new File(spot + fileName)), SIZE_TAMPON);
+	            sortie = new BufferedOutputStream(new FileOutputStream(myFile), SIZE_TAMPON);
 
 	            byte[] tampon = new byte[SIZE_TAMPON];
 	            int longueur;
