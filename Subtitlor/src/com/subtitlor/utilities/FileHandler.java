@@ -51,6 +51,8 @@ public class FileHandler {
 	            
 	            	String line = new String(tampon, 0, longueur);
 	                        	
+	            	System.out.println("String line : " + line);	
+	            	
 	            	// Starting over new Sequence
 	            	if (newStart == 0) {
 	            		newStart++;
@@ -73,6 +75,7 @@ public class FileHandler {
 	            		
 	            		trad = new Traduction(tempId,tempSeq,"FRENCH",seqStrings);
 	            		translateFile.add(trad);
+	            		
 	            		// TeST output :
 		            	System.out.println(trad);	      
 		            	

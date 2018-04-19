@@ -31,9 +31,20 @@ public class TraductionDAOImpl implements TraductionDAO {
 			preparedStatement.setString(4, trad.getLanguage());
 
 			preparedStatement.executeUpdate();
-			connexion.commit();
 			
 			// Should be adding Strings now :
+			for (String str : trad.getStrings()) {
+				preparedStatement = connexion.prepareStatement("INSERT INTO strings(translated_str, traduction_id) VALUES(?, ?);");
+				
+				preparedStatement.setInt(2, trad.getId());
+				preparedStatement.setString(1, str);
+	
+				preparedStatement.executeUpdate();
+						
+			}
+			
+			
+			connexion.commit();	
 			
 			
 		} catch (SQLException e) {
