@@ -23,13 +23,19 @@ public class TraductionDAOImpl implements TraductionDAO {
 
 		try {
 			connexion = daoFactory.getConnection();
-			preparedStatement = connexion.prepareStatement("INSERT INTO noms(nom, prenom) VALUES(?, ?);");
+			preparedStatement = connexion.prepareStatement("INSERT INTO traduction(id,filename,sequence,language_str) VALUES(?, ?, ? , ?);");
 			
-			preparedStatement.setString(1, trad.getName());
-			preparedStatement.setString(2, trad.getFirstname());
+			preparedStatement.setInt(1, trad.getId());
+			preparedStatement.setString(2, trad.getFilename());
+			preparedStatement.setString(3, trad.getSequence());
+			preparedStatement.setString(4, trad.getLanguage());
 
 			preparedStatement.executeUpdate();
 			connexion.commit();
+			
+			// Should be adding Strings now :
+			
+			
 		} catch (SQLException e) {
 			try {
 
@@ -39,14 +45,14 @@ public class TraductionDAOImpl implements TraductionDAO {
 				}
 			} catch (SQLException e2) {
 			}
-			throw new DaoException("Impossible de communiquer avec la base de données");
+			throw new DaoException("Impossible de communiquer avec la base de donnï¿½es");
 		} finally {
 			try {
 				if (connexion != null) {
 					connexion.close();
 				}
 			} catch (SQLException e) {
-				throw new DaoException("Impossible de communiquer avec la base de données");
+				throw new DaoException("Impossible de communiquer avec la base de donnï¿½es");
 			}
 		}
 
@@ -97,17 +103,18 @@ public class TraductionDAOImpl implements TraductionDAO {
 				
 				traductions.add(trad);
 			}
-		} catch (SQLException e) {
-			throw new DaoException("Impossible de communiquer avec la base de données");
-		} catch (BeanException e) {
-			throw new DaoException("Les données de la base sont invalides");
+		} 
+		/*catch (BeanException e) {
+			throw new DaoException("Les donnï¿½es de la base sont invalides");
+		}*/catch (SQLException e) {
+			throw new DaoException("Impossible de communiquer avec la base de donnees");
 		} finally {
 			try {
 				if (connexion != null) {
 					connexion.close();
 				}
 			} catch (SQLException e) {
-				throw new DaoException("Impossible de communiquer avec la base de données");
+				throw new DaoException("Impossible de communiquer avec la base de donnees");
 			}
 		}
 		return traductions;
