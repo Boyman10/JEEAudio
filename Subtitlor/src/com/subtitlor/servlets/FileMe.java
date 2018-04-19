@@ -82,6 +82,11 @@ public class FileMe extends HttpServlet {
         this.getServletContext().getRequestDispatcher("/WEB-INF/fileme.jsp").forward(request, response);		
 	}
 
+	/**
+	 * Only allow srt files here
+	 * @param filename
+	 * @return
+	 */
 	public boolean fileIsValid(String filename) {
 		
 		int pos = filename.lastIndexOf('.');
