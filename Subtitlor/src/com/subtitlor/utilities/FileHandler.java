@@ -22,13 +22,13 @@ public class FileHandler {
 	
 	   public void writeFile( Part part, String fileName) throws IOException {
 	        BufferedInputStream entree = null;
-	        BufferedOutputStream sortie = null;
+	        //BufferedOutputStream sortie = null;
 	        
 	    	File myFile = new File(FILE_FOLDER, fileName);
 
 	        try {
 	            entree = new BufferedInputStream(part.getInputStream(), SIZE_TAMPON);
-	            sortie = new BufferedOutputStream(new FileOutputStream(myFile), SIZE_TAMPON);
+	          //  sortie = new BufferedOutputStream(new FileOutputStream(myFile), SIZE_TAMPON);
 
 	            byte[] tampon = new byte[SIZE_TAMPON];
 	            int longueur;
@@ -37,15 +37,19 @@ public class FileHandler {
 	            	// Writing to array to use it later ??
 	            	wholeFile.add(new String(tampon, 0, longueur));
 	            
+	            	// TeST output :
 	            	System.out.println(new String(tampon, 0, longueur));
 	            	
-	                sortie.write(tampon, 0, longueur);
+	            	
+	            	
+	            //    sortie.write(tampon, 0, longueur);
 	            }
 	        } finally {
-	            try {
+	            /*try {
 	                sortie.close();
 	            } catch (IOException ignore) {
 	            }
+	            */
 	            try {
 	                entree.close();
 	            } catch (IOException ignore) {
