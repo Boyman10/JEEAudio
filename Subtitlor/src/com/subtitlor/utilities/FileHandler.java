@@ -1,12 +1,18 @@
 package com.subtitlor.utilities;
 
 import java.io.BufferedInputStream;
-import java.io.File;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 import javax.servlet.http.Part;
 
+import com.subtitlor.model.dao.DaoException;
+import com.subtitlor.model.dao.TraductionDAO;
+import com.subtitlor.model.dao.TraductionDAOImpl;
+import com.subtitlor.model.dao.factory.DaoFactory;
 import com.subtitlor.model.entity.Traduction;
 
 public class FileHandler {
@@ -15,8 +21,8 @@ public class FileHandler {
 	public static final int SIZE_TAMPON = 10240;
 	
 	// Storing folder from tmp to here :
-	public static final String FILE_FOLDER = "/home/bob/Downloads/";
-	
+	//public static final String FILE_FOLDER = "/home/bob/Downloads/";
+	public static final String FILE_FOLDER = "C:\\Users\\John\\Downloads\\";
 	
 	private ArrayList<String> seqStrings= new ArrayList<>();
 	private ArrayList<Traduction> translateFile = new ArrayList<>();
@@ -30,8 +36,7 @@ public class FileHandler {
 	 */
 	   public void writeFile( Part part, String fileName) throws IOException {
 	        BufferedInputStream entree = null;
-	        //BufferedOutputStream sortie = null;
-	        
+	        //BufferedOutputStream sortie = null;	        
 	        
 	    	//File myFile = new File(FILE_FOLDER, fileName);
 
@@ -39,32 +44,30 @@ public class FileHandler {
 	            entree = new BufferedInputStream(part.getInputStream(), SIZE_TAMPON);
 	          //  sortie = new BufferedOutputStream(new FileOutputStream(myFile), SIZE_TAMPON);
 
-	            byte[] tampon = new byte[SIZE_TAMPON];
-	            int longueur;
+	            // Set up the read of our buffered input 
+	            BufferedReader reader = new BufferedReader(new InputStreamReader(entree, StandardCharsets.UTF_8));
+	            
 	            short newStart = 0;
 	            Traduction trad;
 	            
 	            int tempId = 0;
 	            String tempSeq = "";
+	            String line;
 	            
-	            while ((longueur = entree.read(tampon)) > 0) {
-	            
-	            	String line = new String(tampon, 0, longueur);
-	                        	
-	            	System.out.println("String line : " + line);	
+	            while ((line = reader.readLine()) != null) {
+	            	                        	
+	            	System.err.println("String line : " + line);	
 	            	
 	            	// Starting over new Sequence
 	            	if (newStart == 0) {
 	            		newStart++;
 	            		
 	            		try {
-	            			tempId = Integer.parseInt(line);
-	            			
-	            		
-	            		} catch(Exception e) {
-	            			
-	            			e.printStackTrace();
+	            		tempId = Integer.parseInt(line);
+	            		} catch (NumberFormatException e) {
+	            			System.err.println("What is this ? " + line);
 	            		}
+	            		
 	            	} else if (newStart == 1) {
 	            		
 	            		// This is the sequence :
@@ -73,7 +76,7 @@ public class FileHandler {
 	            		
 	            	} else if (line.isEmpty()) {
 	            		
-	            		trad = new Traduction(tempId,tempSeq,"FRENCH",seqStrings);
+	            		trad = new Traduction(tempId,tempSeq,"FRENCH",seqStrings, fileName);
 	            		translateFile.add(trad);
 	            		
 	            		// TeST output :
@@ -87,14 +90,17 @@ public class FileHandler {
 	            		newStart++;
 	            		seqStrings.add(line);
 	            	}
-	            		            
-	            	
-	            	
-	            	
+	            		        
 	            	
 	            //    sortie.write(tampon, 0, longueur);
 	            }
-	        } finally {
+	        }
+	        
+	        catch(Exception e) {
+    			
+    			e.printStackTrace();
+    		}
+	        finally {
 	            /*try {
 	                sortie.close();
 	            } catch (IOException ignore) {
@@ -105,6 +111,26 @@ public class FileHandler {
 	            } catch (IOException ignore) {
 	            }
 	        }
+	        try {
+		        // Now place to DAO :
+		        for (Traduction trad : translateFile) {
+		        	
+		        	DaoFactory daoF = DaoFactory.getInstance();
+		        	TraductionDAO tradDAO = daoF.getTraductionDao();
+		        	
+		        	
+		        		
+		        	tradDAO.add(trad);
+						
+					
+		        	
+		        }
+	        
+	        } catch (DaoException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	        
 	    }
 	    
 	   public String getFileName( Part part ) {

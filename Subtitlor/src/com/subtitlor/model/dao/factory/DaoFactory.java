@@ -21,13 +21,18 @@ public class DaoFactory {
 
     public static DaoFactory getInstance() {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+           // Class.forName("com.mysql.jdbc.Driver");
+        	 Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException e) {
 
         }
 
-        DaoFactory instance = new DaoFactory(
-                "jdbc:mysql://localhost:3306/test", "test", "1234");
+        //DaoFactory instance = new DaoFactory(
+          //      "jdbc:mysql://localhost:3306/struts-app", "test", "1234");
+        
+        	DaoFactory instance = new DaoFactory(
+        	                "jdbc:postgresql://127.0.0.1:5432/struts-app", "test", "1234");
+        	
         return instance;
     }
 
@@ -38,7 +43,7 @@ public class DaoFactory {
     }
 
     // Récupération du Dao
-    public TraductionDAO getUserDao() {
+    public TraductionDAO getTraductionDao() {
         return new TraductionDAOImpl(this);
     }
 }

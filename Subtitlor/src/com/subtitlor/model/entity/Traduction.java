@@ -29,12 +29,13 @@ public class Traduction {
 	 * @param language
 	 * @param strs
 	 */
-	public Traduction(int id, String seq, String language, ArrayList<String> strs) {
+	public Traduction(int id, String seq, String language, ArrayList<String> strs, String filename) {
 		
 		this.id = id;
 		this.sequence = seq;
 		this.language = language;
 		this.strings = strs;
+		this.filename = filename;
 	}
 	
 	public int getId() {
