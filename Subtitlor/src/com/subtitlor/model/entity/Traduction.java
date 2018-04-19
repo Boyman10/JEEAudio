@@ -67,6 +67,12 @@ public class Traduction {
 	}
 	public void setFilename(String file) {
 		this.filename = file;
+	}
+
+	@Override
+	public String toString() {
+		return "Traduction [id=" + id + ", filename=" + filename + ", sequence=" + sequence + ", strings=" + strings
+				+ ", language=" + language + "]";
 	}	
 	
 }
