@@ -9,12 +9,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.subtitlor.utilities.SubtitlesHandler;
+import com.subtitlor.model.service.TranslationService;
+//import com.subtitlor.utilities.SubtitlesHandler;
 
 @WebServlet("/EditSubtitle")
 public class EditSubtitle extends HttpServlet {
+	
 	private static final long serialVersionUID = 1L;
 	private static final String FILE_NAME = "/WEB-INF/password_presentation.srt";
+	
+	private TranslationService serviceT;
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -22,9 +26,15 @@ public class EditSubtitle extends HttpServlet {
 		
 		System.out.println(context.getRealPath(FILE_NAME));
 		
-		SubtitlesHandler subtitles = new SubtitlesHandler(context.getRealPath(FILE_NAME));
+		//@Deprecated
+		//SubtitlesHandler subtitles = new SubtitlesHandler(context.getRealPath(FILE_NAME));
 		
-		request.setAttribute("subtitles", subtitles.getSubtitles());
+		serviceT = new TranslationService();
+		
+		String filename = "LAST FILE";
+		request.setAttribute("file", filename);
+		request.setAttribute("subtitles", serviceT.getLastEntries());
+
 		
 		this.getServletContext().getRequestDispatcher("/WEB-INF/edit_subtitle.jsp").forward(request, response);
 	}

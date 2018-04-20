@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.subtitlor.model.entity.Traduction;
-import com.subtitlor.model.BeanException;
 import com.subtitlor.model.dao.factory.DaoFactory;
 
 public class TraductionDAOImpl implements TraductionDAO {
@@ -38,7 +37,7 @@ public class TraductionDAOImpl implements TraductionDAO {
 			// Should be adding Strings now :
 			for (String str : trad.getStrings()) {
 				preparedStatement = connexion.prepareStatement("INSERT INTO strings(translated_str, traduction_id) VALUES(?, ?) " + 
-																					"ON CONFLICT (traduction_id) DO UPDATE " + 
+																					"ON CONFLICT (translated_str, traduction_id) DO UPDATE " + 
 																					"SET translated_str = excluded.translated_str;");
 				
 				preparedStatement.setInt(2, trad.getId());
@@ -77,20 +76,32 @@ public class TraductionDAOImpl implements TraductionDAO {
 
 	}
 
+	/**
+	 * Retrieve translation data from filename if there is any
+	 * @param filename
+	 * @return
+	 * @throws DaoException
+	 */
 	@Override
-	public List<Traduction> list() throws DaoException {
+	public ArrayList<Traduction> list(String filename) throws DaoException {
 		
-		List<Traduction> traductions = new ArrayList<Traduction>();
-		
+		ArrayList<Traduction> traductions = new ArrayList<Traduction>();
+		String queryFilename = " WHERE filename IN (SELECT filename FROM traduction ORDER BY id DESC LIMIT 1);";
+		if (!filename.isEmpty())
+			queryFilename = " WHERE filename = ?"; 
+				
 		Connection connexion = null;
-		Statement statement = null;
+		PreparedStatement statement = null;
 		ResultSet resultat = null, resultats = null;
 
 		try {
-			connexion = daoFactory.getConnection();
-			statement = connexion.createStatement();
-			resultat = statement.executeQuery("SELECT * FROM traduction");
-
+			 connexion = daoFactory.getConnection();
+			 statement = connexion.prepareStatement("SELECT * FROM traduction" + queryFilename);
+			if (!filename.isEmpty())
+				statement.setString(1, filename);
+			
+			resultat = statement.getResultSet();
+			
 			while (resultat.next()) {
 				
 				String fileName = resultat.getString("filename");

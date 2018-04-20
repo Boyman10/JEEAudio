@@ -1,6 +1,6 @@
 package com.subtitlor.model.dao;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import com.subtitlor.model.entity.Traduction;
 
@@ -13,6 +13,6 @@ public interface TraductionDAO {
 
 
 	void add( Traduction trad) throws DaoException;
-	List<Traduction> list() throws DaoException;
+	ArrayList<Traduction> list(String filename) throws DaoException;
 
 }

@@ -20,5 +20,6 @@
         
         <input type="submit" />
 </form>
+<p><a href="edit">get back to edition...</a>
 </body>
 </html>

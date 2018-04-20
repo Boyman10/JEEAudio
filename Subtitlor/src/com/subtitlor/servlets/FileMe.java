@@ -34,6 +34,10 @@ public class FileMe extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		// Retrieve here the last file name and data :
+		
+		
 
 		this.getServletContext().getRequestDispatcher("/WEB-INF/fileme.jsp").forward(request, response);
 	}
