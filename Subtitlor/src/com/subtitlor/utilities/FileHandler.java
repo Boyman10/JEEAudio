@@ -34,7 +34,8 @@ public class FileHandler {
 	 * @param fileName
 	 * @throws IOException
 	 */
-	   public void writeFile( Part part, String fileName) throws IOException {
+	   @SuppressWarnings("unchecked")
+	public void writeFile( Part part, String fileName) throws IOException {
 	        BufferedInputStream entree = null;
 	        //BufferedOutputStream sortie = null;	        
 	        
@@ -76,11 +77,10 @@ public class FileHandler {
 	            		
 	            	} else if (line.isEmpty()) {
 	            		
-	            		trad = new Traduction(tempId,tempSeq,"FRENCH",seqStrings, fileName);
+	            		trad = new Traduction(tempId,tempSeq,"FRENCH",(ArrayList<String>) seqStrings.clone(), fileName);
 	            		translateFile.add(trad);
 	            		
-	            		// TeST output :
-		            	System.out.println(trad);	      
+	            		
 		            	
 	            		// We start over :
 	            		newStart = 0;
@@ -113,14 +113,15 @@ public class FileHandler {
 	        }
 	        try {
 		        // Now place to DAO :
-		        for (Traduction trad : translateFile) {
+		        for (Traduction tradInstance : translateFile) {
 		        	
 		        	DaoFactory daoF = DaoFactory.getInstance();
 		        	TraductionDAO tradDAO = daoF.getTraductionDao();
 		        	
-		        	
+		        	// TeST output :
+	            	System.out.println(tradInstance);	      
 		        		
-		        	tradDAO.add(trad);
+		        	tradDAO.add(tradInstance);
 						
 					
 		        	

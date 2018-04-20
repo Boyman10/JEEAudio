@@ -26,9 +26,8 @@ CREATE TABLE traduction (
 
 
 CREATE TABLE strings (
-	id serial PRIMARY KEY,
 	translated_str VARCHAR(250),	
-	traduction_id integer NOT NULL,
+	traduction_id integer NOT NULL PRIMARY KEY,
 	  CONSTRAINT traduction_id_fkey FOREIGN KEY (traduction_id)
       REFERENCES traduction (id) MATCH SIMPLE
       ON UPDATE CASCADE ON DELETE CASCADE

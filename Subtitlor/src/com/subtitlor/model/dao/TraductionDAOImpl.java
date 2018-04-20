@@ -23,7 +23,10 @@ public class TraductionDAOImpl implements TraductionDAO {
 
 		try {
 			connexion = daoFactory.getConnection();
-			preparedStatement = connexion.prepareStatement("INSERT INTO traduction(id,filename,sequence,language_str) VALUES(?, ?, ? , ?);");
+			preparedStatement = connexion.prepareStatement("INSERT INTO traduction(id,filename,sequence,language_str) VALUES(?, ?, ? , ?) " + 
+															"ON CONFLICT (id) DO UPDATE " + 
+															"SET sequence = excluded.sequence;"); 
+					    
 			
 			preparedStatement.setInt(1, trad.getId());
 			preparedStatement.setString(2, trad.getFilename());
@@ -34,7 +37,9 @@ public class TraductionDAOImpl implements TraductionDAO {
 			
 			// Should be adding Strings now :
 			for (String str : trad.getStrings()) {
-				preparedStatement = connexion.prepareStatement("INSERT INTO strings(translated_str, traduction_id) VALUES(?, ?);");
+				preparedStatement = connexion.prepareStatement("INSERT INTO strings(translated_str, traduction_id) VALUES(?, ?) " + 
+																					"ON CONFLICT (traduction_id) DO UPDATE " + 
+																					"SET translated_str = excluded.translated_str;");
 				
 				preparedStatement.setInt(2, trad.getId());
 				preparedStatement.setString(1, str);
