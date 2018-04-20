@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import org.apache.tomcat.jdbc.pool.DataSource;
+import javax.sql.DataSource;
 
 import com.subtitlor.model.entity.Traduction;
 
