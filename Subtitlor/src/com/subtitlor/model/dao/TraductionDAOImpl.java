@@ -4,6 +4,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.plaf.synth.SynthSeparatorUI;
+
 import com.subtitlor.model.entity.Traduction;
 import com.subtitlor.model.dao.factory.DaoFactory;
 
@@ -87,7 +89,8 @@ public class TraductionDAOImpl implements TraductionDAO {
 		
 		ArrayList<Traduction> traductions = new ArrayList<Traduction>();
 		String queryFilename = " WHERE filename IN (SELECT filename FROM traduction ORDER BY id DESC LIMIT 1);";
-		if (!filename.isEmpty())
+		
+		if (filename != null && !filename.isEmpty())
 			queryFilename = " WHERE filename = ?"; 
 				
 		Connection connexion = null;
@@ -97,10 +100,13 @@ public class TraductionDAOImpl implements TraductionDAO {
 		try {
 			 connexion = daoFactory.getConnection();
 			 statement = connexion.prepareStatement("SELECT * FROM traduction" + queryFilename);
-			if (!filename.isEmpty())
+			 
+			 System.out.println("SELECT * FROM traduction" + queryFilename);
+			 
+			 if (filename != null && !filename.isEmpty())
 				statement.setString(1, filename);
 			
-			resultat = statement.getResultSet();
+			resultat = statement.executeQuery();
 			
 			while (resultat.next()) {
 				
@@ -117,14 +123,14 @@ public class TraductionDAOImpl implements TraductionDAO {
 				// The strings now :
 				PreparedStatement preparedStatement = connexion.prepareStatement("SELECT * FROM strings WHERE traduction_id = ?");
 				preparedStatement.setInt(1, trad.getId());
-				resultats = preparedStatement.getResultSet();
+				resultats = preparedStatement.executeQuery();
 				String language = null;
-				
+				language = resultat.getString("language_str");
+
 				ArrayList<String> allStrings = new ArrayList<>();
 				while (resultats.next()) {
 					
-					String string = resultat.getString("translated_str");
-					language = resultat.getString("language_str");
+					String string = resultats.getString("translated_str");
 					allStrings.add(string);
 					
 				}
@@ -137,7 +143,9 @@ public class TraductionDAOImpl implements TraductionDAO {
 		/*catch (BeanException e) {
 			throw new DaoException("Les donn�es de la base sont invalides");
 		}*/catch (SQLException e) {
-			throw new DaoException("Impossible de communiquer avec la base de donnees");
+			
+			e.printStackTrace();
+			
 		} finally {
 			try {
 				if (connexion != null) {

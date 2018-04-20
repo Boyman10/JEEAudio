@@ -18,8 +18,16 @@
     <url-pattern>/edit</url-pattern>
   </servlet-mapping>
   
-  
     <servlet>
+    <servlet-name>Download</servlet-name>
+    <servlet-class>com.subtitlor.servlets.Download</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Download</servlet-name>
+    <url-pattern>/download</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
     <servlet-name>FileMe</servlet-name>
     <servlet-class>com.subtitlor.servlets.FileMe</servlet-class>
     <multipart-config>
@@ -28,9 +36,7 @@
       <max-request-size>52428800</max-request-size>
       <file-size-threshold>1048576</file-size-threshold>
     </multipart-config>
-</servlet>
-
-
+  </servlet>
   <servlet-mapping>
     <servlet-name>FileMe</servlet-name>
     <url-pattern>/fileme</url-pattern>

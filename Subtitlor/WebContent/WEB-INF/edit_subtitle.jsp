@@ -7,7 +7,12 @@
 <title>Editer les sous-titres</title>
 </head>
 <body>
-<h2>Editing of last inserted Translation file : <c:out value="${file}"></c:out></h2>
+<h2>Editing of last inserted Translation file : 
+	<a href="<c:url value="download">
+		<c:param name="file" value="${subtitles.get(0).getFilename()}"/></c:url>">
+		<c:out value="${subtitles.get(0).getFilename()}"></c:out>
+	</a>
+</h2>
 <p>At any time, you may upload a new transation file : <a href="fileme">File me now</a></p>
     <form method="post">    
         <input type="submit" style="position:fixed; top: 10px; right: 10px;" />

@@ -31,8 +31,6 @@ public class EditSubtitle extends HttpServlet {
 		
 		serviceT = new TranslationService();
 		
-		String filename = "LAST FILE";
-		request.setAttribute("file", filename);
 		request.setAttribute("subtitles", serviceT.getLastEntries());
 
 		
