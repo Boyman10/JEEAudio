@@ -11,7 +11,6 @@ import javax.servlet.http.Part;
 
 import com.subtitlor.model.dao.DaoException;
 import com.subtitlor.model.dao.TraductionDAO;
-import com.subtitlor.model.dao.TraductionDAOImpl;
 import com.subtitlor.model.dao.factory.DaoFactory;
 import com.subtitlor.model.entity.Traduction;
 
@@ -21,8 +20,8 @@ public class FileHandler {
 	public static final int SIZE_TAMPON = 10240;
 	
 	// Storing folder from tmp to here :
-	//public static final String FILE_FOLDER = "/home/bob/Downloads/";
-	public static final String FILE_FOLDER = "C:\\Users\\John\\Downloads\\";
+	public static final String FILE_FOLDER = "/home/bob/Downloads/";
+	//public static final String FILE_FOLDER = "C:\\Users\\John\\Downloads\\";
 	
 	private ArrayList<String> seqStrings= new ArrayList<>();
 	private ArrayList<Traduction> translateFile = new ArrayList<>();
