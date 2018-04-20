@@ -2,9 +2,6 @@ package com.subtitlor.model.dao;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.plaf.synth.SynthSeparatorUI;
 
 import com.subtitlor.model.entity.Traduction;
 import com.subtitlor.model.dao.factory.DaoFactory;
