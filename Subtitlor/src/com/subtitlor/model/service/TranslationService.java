@@ -3,6 +3,7 @@ package com.subtitlor.model.service;
 import java.util.ArrayList;
 
 import com.subtitlor.model.dao.DaoException;
+import com.subtitlor.model.dao.DataSourceDao;
 import com.subtitlor.model.dao.TraductionDAO;
 import com.subtitlor.model.dao.factory.DaoFactory;
 import com.subtitlor.model.entity.Traduction;
@@ -14,15 +15,17 @@ import com.subtitlor.model.entity.Traduction;
  */
 public class TranslationService {
 
+	@Deprecated
 	DaoFactory dao;
-	
+	DataSourceDao dt;
 	
 	/**
 	 * Constructor retrieve the instance of the db connection
 	 */
 	public TranslationService() {
 		
-		this.dao = DaoFactory.getInstance();
+		//this.dao = DaoFactory.getInstance();
+		this.dt  = new DataSourceDao();
 	}
 	
 	/**
@@ -31,10 +34,11 @@ public class TranslationService {
 	 */
 	public ArrayList<Traduction> getLastEntries() {
 		
-		TraductionDAO tradDAO = dao.getTraductionDao();
-		
+		//TraductionDAO tradDAO = dao.getTraductionDao();
+
 		try {
-			return tradDAO.list(null);
+			//return tradDAO.list(null);
+			return dt.list(null);
 		} catch (DaoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
