@@ -31,7 +31,7 @@ public class DaoFactory {
           //      "jdbc:mysql://localhost:3306/struts-app", "test", "1234");
         
         	DaoFactory instance = new DaoFactory(
-        	                "jdbc:postgresql://127.0.0.1:5432/struts-app", "test", "1234");
+        	                "jdbc:postgresql://127.0.0.1:5432/struts_app", "test", "debian");
         	
         return instance;
     }
@@ -42,7 +42,7 @@ public class DaoFactory {
         return connexion; 
     }
 
-    // Récupération du Dao
+    // Rï¿½cupï¿½ration du Dao
     public TraductionDAO getTraductionDao() {
         return new TraductionDAOImpl(this);
     }

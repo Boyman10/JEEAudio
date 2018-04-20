@@ -56,7 +56,10 @@ public class TraductionDAOImpl implements TraductionDAO {
 				}
 			} catch (SQLException e2) {
 			}
-			throw new DaoException("Impossible de communiquer avec la base de donn�es");
+						
+			throw new DaoException(e.getMessage());
+			
+			
 		} finally {
 			try {
 				if (connexion != null) {
