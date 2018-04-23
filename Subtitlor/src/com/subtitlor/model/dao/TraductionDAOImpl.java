@@ -35,9 +35,12 @@ public class TraductionDAOImpl implements TraductionDAO {
 			
 			// Should be adding Strings now :
 			for (String str : trad.getStrings()) {
-				preparedStatement = connexion.prepareStatement("INSERT INTO strings(translated_str, traduction_id) VALUES(?, ?) " + 
-																					"ON CONFLICT (translated_str, traduction_id) DO UPDATE " + 
-																					"SET translated_str = excluded.translated_str;");
+				preparedStatement = connexion.prepareStatement("INSERT INTO strings(translated_str, traduction_id) VALUES(?, ?) ");
+				
+				/* @TODO" + 
+				"ON CONFLICT (translated_str, traduction_id) DO UPDATE " + 
+				"SET translated_str = excluded.translated_str;"
+				*/
 				
 				preparedStatement.setInt(2, trad.getId());
 				preparedStatement.setString(1, str);

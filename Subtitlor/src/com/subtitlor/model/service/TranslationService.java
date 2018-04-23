@@ -32,13 +32,13 @@ public class TranslationService {
 	 * SErvice method to get the last stored data
 	 * @throws DaoException 
 	 */
-	public ArrayList<Traduction> getLastEntries() {
+	public ArrayList<Traduction> getLastEntries(String filename) {
 		
 		//TraductionDAO tradDAO = dao.getTraductionDao();
 
 		try {
 			//return tradDAO.list(null);
-			return dt.list(null);
+			return dt.list(filename);
 		} catch (DaoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

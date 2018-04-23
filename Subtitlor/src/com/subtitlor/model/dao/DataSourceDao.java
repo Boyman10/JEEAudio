@@ -110,8 +110,8 @@ public class DataSourceDao implements TraductionDAO {
 				}
 				trad.setStrings(allStrings);
 				trad.setLanguage(language);
-				
-System.out.println(trad);
+
+
 				traductions.add(trad);
 			}
 		} 
