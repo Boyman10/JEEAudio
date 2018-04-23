@@ -8,10 +8,12 @@
 </head>
 <body>
 <h2>Editing of last inserted Translation file : 
+<c:if test="${not empty subtitles }" >
 	<a href="<c:url value="download">
 		<c:param name="file" value="${subtitles.get(0).getFilename()}"/></c:url>">
 		<c:out value="${subtitles.get(0).getFilename()}"></c:out>
 	</a>
+</c:if>
 </h2>
 <p>At any time, you may upload a new transation file : <a href="fileme">File me now</a></p>
     <form method="post">    
