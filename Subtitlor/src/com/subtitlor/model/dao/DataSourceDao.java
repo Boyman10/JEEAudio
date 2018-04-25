@@ -61,10 +61,10 @@ public class DataSourceDao implements TraductionDAO {
 	public ArrayList<Traduction> list(String filename) throws DaoException {
 
 		ArrayList<Traduction> traductions = new ArrayList<Traduction>();
-		String queryFilename = " WHERE filename IN (SELECT filename FROM traduction ORDER BY id DESC LIMIT 1);";
+		String queryFilename = " ORDER BY date_file DESC LIMIT 1";
 		
 		if (filename != null && !filename.isEmpty())
-			queryFilename = " WHERE filename = ?"; 
+			queryFilename = " WHERE file_name = ?"; 
 				
 		Connection connexion = null;
 		PreparedStatement statement = null, preparedStatement = null;
@@ -73,18 +73,37 @@ public class DataSourceDao implements TraductionDAO {
 		try {
 			// Replacing DAOFActory by DataSource here :
 			 connexion = ds.getConnection();
-			 statement = connexion.prepareStatement("SELECT * FROM traduction" + queryFilename);
+			 statement = connexion.prepareStatement("SELECT * FROM file_translate" + queryFilename);
 			 
-			 System.out.println("SELECT * FROM traduction" + queryFilename);
+			 System.out.println("SELECT * FROM file_translate" + queryFilename);
 			 
 			 if (filename != null && !filename.isEmpty())
 				statement.setString(1, filename);
 			
 			resultat = statement.executeQuery();
 			
+			// Retrieve first and unique row :
+			String fileName = resultat.getString("file_name");
+			int fileId = resultat.getInt("id");
+
+		    if (statement != null) {
+			      statement.close(); 
+			      statement = null;
+			    }
+		    
+		    if (resultat != null) {
+			      resultat.close();
+			      resultat = null;
+			    }
+		    
+			// now up to the sequence navigation :
+			statement = connexion.prepareStatement("SELECT * FROM sequence_translate WHERE file_id = ?");
+			statement.setInt(1, fileId);
+			resultat = statement.executeQuery();
+			
 			while (resultat.next()) {
 				
-				String fileName = resultat.getString("filename");
+				
 				String sequence = resultat.getString("sequence");
 		
 				int tradId = resultat.getInt("id");
