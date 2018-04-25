@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.subtitlor.model.dao.DaoException;
 import com.subtitlor.model.dao.DataSourceDao;
-import com.subtitlor.model.dao.TraductionDAO;
+//import com.subtitlor.model.dao.TraductionDAO;
 import com.subtitlor.model.dao.factory.DaoFactory;
 import com.subtitlor.model.entity.Traduction;
 

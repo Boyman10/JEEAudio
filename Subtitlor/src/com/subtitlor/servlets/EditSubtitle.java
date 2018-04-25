@@ -36,9 +36,11 @@ public class EditSubtitle extends HttpServlet {
 		
 		request.setAttribute("subtitles", subtitles);
 		
+		/*@Deprecated
 		// Retrieve translated strings
 		if (!subtitles.isEmpty())
 		request.setAttribute("subtitles_en", serviceT.getLastEntries(subtitles.get(0).getFilename()));
+		*/
 		
 		this.getServletContext().getRequestDispatcher("/WEB-INF/edit_subtitle.jsp").forward(request, response);
 	}

@@ -35,3 +35,32 @@ CREATE TABLE strings (
       ON UPDATE CASCADE ON DELETE CASCADE
 	
 ) ;
+
+
+## NEW VERSION ##
+CREATE TABLE file_translate (
+	id serial PRIMARY KEY,
+	file_name VARCHAR(100) NOT NULL,
+	date_file DATE NOT NULL 
+) ;
+
+CREATE TABLE sequence_translate (
+	id serial PRIMARY KEY,
+	sequence_details VARCHAR(100) NOT NULL,
+	file_id integer NOT NULL,
+CONSTRAINT sequence_id_fkey FOREIGN KEY (file_id)
+      REFERENCES file_translate (id) MATCH SIMPLE
+      ON UPDATE CASCADE ON DELETE CASCADE
+) ;
+
+CREATE TABLE string_translate (
+	
+	sequence_id integer NOT NULL,
+	language_string VARCHAR(100) NOT NULL,
+	content_string VARCHAR(250) NOT NULL,
+	PRIMARY KEY (sequence_id,language_string),
+CONSTRAINT translate_id_fkey FOREIGN KEY (sequence_id)
+      REFERENCES sequence_translate (id) MATCH SIMPLE
+      ON UPDATE CASCADE ON DELETE CASCADE
+) ;
+
