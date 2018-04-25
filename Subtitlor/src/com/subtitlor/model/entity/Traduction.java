@@ -1,6 +1,7 @@
 package com.subtitlor.model.entity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Class holding a traduction of a video loaded from a file
@@ -10,10 +11,10 @@ import java.util.ArrayList;
 public class Traduction {
 
 	private int id ; 
-	private String filename;// file / audio identification
+
 	private String sequence;
-	private ArrayList<String> strings;
-	private String language;
+	private HashMap<String,ArrayList<String>> mapString; // ex : {"FRENCH", {"phrase 1","phrase 2","phrase 3"}}
+
 	
 	/**
 	 * Empty constructor
@@ -21,59 +22,71 @@ public class Traduction {
 	public Traduction() {
 		
 	}
-	
-	/**
-	 * Constructor class
-	 * @param id
-	 * @param seq
-	 * @param language
-	 * @param strs
-	 */
-	public Traduction(int id, String seq, String language, ArrayList<String> strs, String filename) {
-		
+
+
+	public Traduction(int id, String sequence, HashMap<String, ArrayList<String>> mapString) {
+		super();
 		this.id = id;
-		this.sequence = seq;
-		this.language = language;
-		this.strings = strs;
-		this.filename = filename;
+		this.sequence = sequence;
+		this.mapString = mapString;
 	}
-	
+
+
+	/**
+	 * @return the id
+	 */
 	public int getId() {
 		return id;
 	}
+
+
+	/**
+	 * @param id the id to set
+	 */
 	public void setId(int id) {
 		this.id = id;
 	}
+
+
+	/**
+	 * @return the sequence
+	 */
 	public String getSequence() {
 		return sequence;
 	}
+
+
+	/**
+	 * @param sequence the sequence to set
+	 */
 	public void setSequence(String sequence) {
 		this.sequence = sequence;
 	}
-	public ArrayList<String> getStrings() {
-		return strings;
-	}
-	public void setStrings(ArrayList<String> strings) {
-		this.strings = strings;
-	}
-	public String getLanguage() {
-		return language;
-	}
-	public void setLanguage(String language) {
-		this.language = language;
-	}
-	
-	public String getFilename() {
-		return filename;
-	}
-	public void setFilename(String file) {
-		this.filename = file;
+
+
+	/**
+	 * @return the mapString
+	 */
+	public HashMap<String, ArrayList<String>> getMapString() {
+		return mapString;
 	}
 
+
+	/**
+	 * @param mapString the mapString to set
+	 */
+	public void setMapString(HashMap<String, ArrayList<String>> mapString) {
+		this.mapString = mapString;
+	}
+
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
-		return "Traduction [id=" + id + ", filename=" + filename + ", sequence=" + sequence + ", strings=" + strings
-				+ ", language=" + language + "]";
-	}	
+		return "Traduction [id=" + id + ", sequence=" + sequence + ", mapString=" + mapString + "]";
+	}
 	
+
 }
