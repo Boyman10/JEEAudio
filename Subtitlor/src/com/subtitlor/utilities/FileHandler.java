@@ -28,6 +28,7 @@ public class FileHandler {
 	public static final String FILE_FOLDER = "/home/bob/Downloads/";
 	//public static final String FILE_FOLDER = "C:\\Users\\John\\Downloads\\";
 	
+	private FileToTranslate fTrad;
 	private ArrayList<String> seqStrings= new ArrayList<>();
 	private ArrayList<Traduction> translateSeq = new ArrayList<>();
 	
@@ -54,7 +55,7 @@ public class FileHandler {
 	            BufferedReader reader = new BufferedReader(new InputStreamReader(entree, StandardCharsets.UTF_8));
 	            
 	            short newStart = 0;
-	            FileToTranslate fTrad;
+	            
 	            
 	            fTrad = new FileToTranslate();	            
 	            fTrad.setFileName(fileName);
@@ -86,16 +87,13 @@ public class FileHandler {
 	            		
 	            	} else if (line.isEmpty()) {
 	            		
-	            		HashMap hMap = new HashMap<String,ArrayList<String>>();
-	            		hMap.put("FRENCH",seqStrings.clone() );
+	            		HashMap<String,ArrayList<String>> hMap = new HashMap<>();
+	            		
+	            		hMap.put("FRENCH",(ArrayList<String>) seqStrings.clone() );
 	            		
 	            		Traduction trad = new Traduction(tempSeq,hMap);
 	            		translateSeq.add(trad);
 	            		
-	            		
-	            		
-	            		
-		            	
 	            		// We start over :
 	            		newStart = 0;
 	            		seqStrings.clear();
@@ -130,20 +128,11 @@ public class FileHandler {
 	        try {
 	        	
 	        	
-		        // Now place to DAO :
-		        for (Traduction tradInstance : translateFile) {
 		        	
 		        	DaoFactory daoF = DaoFactory.getInstance();
 		        	TraductionDAO tradDAO = daoF.getTraductionDao();
+		        	tradDAO.add(fTrad);
 		        	
-		        	// TeST output :
-	            	System.out.println(tradInstance);	      
-		        		
-		        	tradDAO.add(tradInstance);
-						
-					
-		        	
-		        }
 	        
 	        } catch (DaoException e) {
 				// TODO Auto-generated catch block
