@@ -3,6 +3,7 @@ package com.subtitlor.model.dao;
 import java.sql.*;
 import java.util.ArrayList;
 
+import com.subtitlor.model.entity.FileToTranslate;
 import com.subtitlor.model.entity.Traduction;
 import com.subtitlor.model.dao.factory.DaoFactory;
 
@@ -15,38 +16,57 @@ public class TraductionDAOImpl implements TraductionDAO {
 		    }
 
 	@Override
-	public void add(Traduction trad, FileToTranslate fTr) throws DaoException {
+	public void add(FileToTranslate ftr) throws DaoException {
 		Connection connexion = null;
-		PreparedStatement preparedStatement = null;
+		PreparedStatement preparedStatement = null, preparedStatementB = null;
 
 		try {
-			connexion = daoFactory.getConnection();
-			preparedStatement = connexion.prepareStatement("INSERT INTO traduction(id,filename,sequence,language_str) VALUES(?, ?, ? , ?) " + 
-															"ON CONFLICT (id) DO UPDATE " + 
-															"SET sequence = excluded.sequence;"); 
-					    
-	//INSERT INTO file_translate( file_name,date_file) VALUES ( 'sdfgfdsg', '2001-10-05') RETURNING id;		
-			preparedStatement.setInt(1, trad.getId());
-			preparedStatement.setString(2, trad.getFilename());
-			preparedStatement.setString(3, trad.getSequence());
-			preparedStatement.setString(4, trad.getLanguage());
-
-			preparedStatement.executeUpdate();
 			
-			// Should be adding Strings now :
-			for (String str : trad.getStrings()) {
-				preparedStatement = connexion.prepareStatement("INSERT INTO strings(translated_str, traduction_id) VALUES(?, ?) ");
+			connexion = daoFactory.getConnection();
+			preparedStatement = connexion.prepareStatement("INSERT INTO file_translate(file_name,date_file) VALUES( ? , current_date)  RETURNING file_id"); 
+					    
+			preparedStatement.setString(1, ftr.getFileName());
+			ResultSet rs = preparedStatement.executeQuery();
+
+			int fid = rs.getInt("file_id"); 
+
+			// Now up to sequences :
+			for (Traduction trad : ftr.getSequences()) {
 				
-				/* @TODO" + 
-				"ON CONFLICT (translated_str, traduction_id) DO UPDATE " + 
-				"SET translated_str = excluded.translated_str;"
-				*/
+				preparedStatement = connexion.prepareStatement("INSERT INTO sequence_translate(sequence_details, file_id) VALUES(?, ?) RETURNING sequence_id");
 				
-				preparedStatement.setInt(2, trad.getId());
-				preparedStatement.setString(1, str);
-	
-				preparedStatement.executeUpdate();
-						
+				preparedStatement.setString(1, trad.getSequence());
+				preparedStatement.setInt(2, fid);
+					
+				rs = preparedStatement.executeQuery();
+				
+				int seqId = rs.getInt("sequence_id");
+				
+				// Now the strings FRENCH 1st :
+				for (String str : trad.getMapString().get("FRENCH")) {
+					
+					preparedStatementB = connexion.prepareStatement("INSERT INTO string_translate (sequence_id, language_string, content_string) VALUES (?,?)");
+					
+					preparedStatementB.setString(1, "FRENCH");
+					preparedStatementB.setInt(1, seqId);
+					preparedStatementB.setString(1, str);
+					
+					preparedStatementB.executeUpdate();
+					
+				}
+				
+				// then englich :
+				for (String str : trad.getMapString().get("ENGLISH")) {
+					
+					preparedStatementB = connexion.prepareStatement("INSERT INTO string_translate (sequence_id, language_string, content_string) VALUES (?,?)");
+					
+					preparedStatementB.setString(1, "ENGLISH");
+					preparedStatementB.setInt(1, seqId);
+					preparedStatementB.setString(1, str);
+					
+					preparedStatementB.executeUpdate();
+					
+				}						
 			}
 			
 			
@@ -87,7 +107,7 @@ public class TraductionDAOImpl implements TraductionDAO {
 	@Override
 	public ArrayList<Traduction> list(String filename) throws DaoException {
 		
-		ArrayList<Traduction> traductions = new ArrayList<Traduction>();
+	/*	ArrayList<Traduction> traductions = new ArrayList<Traduction>();
 		String queryFilename = " WHERE filename IN (SELECT filename FROM traduction ORDER BY id DESC LIMIT 1);";
 		
 		if (filename != null && !filename.isEmpty())
@@ -140,9 +160,7 @@ public class TraductionDAOImpl implements TraductionDAO {
 				traductions.add(trad);
 			}
 		} 
-		/*catch (BeanException e) {
-			throw new DaoException("Les donn�es de la base sont invalides");
-		}*/catch (SQLException e) {
+		catch (SQLException e) {
 			
 			e.printStackTrace();
 			
@@ -155,7 +173,9 @@ public class TraductionDAOImpl implements TraductionDAO {
 				throw new DaoException("Impossible de communiquer avec la base de donnees");
 			}
 		}
-		return traductions;
+			return traductions
+		*/
+		return null;
 	}
 
 }

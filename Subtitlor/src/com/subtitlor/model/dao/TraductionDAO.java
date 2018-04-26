@@ -13,7 +13,7 @@ import com.subtitlor.model.entity.Traduction;
 public interface TraductionDAO {
 
 
-	void add( Traduction trad, FileToTranslate ftr) throws DaoException;
+	void add(FileToTranslate ftr) throws DaoException;
 	ArrayList<Traduction> list(String filename) throws DaoException;
 
 }
