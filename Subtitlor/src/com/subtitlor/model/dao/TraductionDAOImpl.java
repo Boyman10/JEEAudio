@@ -15,7 +15,7 @@ public class TraductionDAOImpl implements TraductionDAO {
 		    }
 
 	@Override
-	public void add(Traduction trad) throws DaoException {
+	public void add(Traduction trad, FileToTranslate fTr) throws DaoException {
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 

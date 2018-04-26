@@ -5,12 +5,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-
 import javax.sql.DataSource;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.subtitlor.model.entity.FileToTranslate;
 import com.subtitlor.model.entity.Traduction;
 
 /**
@@ -27,7 +31,8 @@ public class DataSourceDao implements TraductionDAO {
 
 	// Using JDBC pool datasource from Tomcat
 	DataSource ds;
-
+	static final Logger logger = LogManager.getLogger();
+	
 	public DataSourceDao() {
 
 		InitialContext cxt;
@@ -52,7 +57,7 @@ public class DataSourceDao implements TraductionDAO {
 	}
 
 	@Override
-	public void add(Traduction trad) throws DaoException {
+	public void add(Traduction trad, FileToTranslate ftr) throws DaoException {
 		// TODO Auto-generated method stub
 //INSERT INTO file_translate( file_name,date_file) VALUES ( 'sdfgfdsg', '2001-10-05') RETURNING id;
 	}
@@ -60,7 +65,10 @@ public class DataSourceDao implements TraductionDAO {
 	@Override
 	public ArrayList<Traduction> list(String filename) throws DaoException {
 
+		// The data to return :
 		ArrayList<Traduction> traductions = new ArrayList<Traduction>();
+		
+		
 		String queryFilename = " ORDER BY date_file DESC LIMIT 1";
 		
 		if (filename != null && !filename.isEmpty())
@@ -75,7 +83,7 @@ public class DataSourceDao implements TraductionDAO {
 			 connexion = ds.getConnection();
 			 statement = connexion.prepareStatement("SELECT * FROM file_translate" + queryFilename);
 			 
-			 System.out.println("SELECT * FROM file_translate" + queryFilename);
+			 logger.debug("SELECT * FROM file_translate" + queryFilename);
 			 
 			 if (filename != null && !filename.isEmpty())
 				statement.setString(1, filename);
@@ -84,6 +92,8 @@ public class DataSourceDao implements TraductionDAO {
 			
 			// Retrieve first and unique row :
 			String fileName = resultat.getString("file_name");
+			logger.debug("Getting filename from query " + fileName);
+			// retrieve ID now :
 			int fileId = resultat.getInt("id");
 
 		    if (statement != null) {
@@ -103,34 +113,51 @@ public class DataSourceDao implements TraductionDAO {
 			
 			while (resultat.next()) {
 				
-				
-				String sequence = resultat.getString("sequence");
-		
-				int tradId = resultat.getInt("id");
-				
+				// The sequence details
+				String sequence = resultat.getString("sequence_details");
+				// Then the ID 
+				int tradId = resultat.getInt("sequence_id");
+
+				// Create new Traduction object with all translated strings matching the current sequence
 				Traduction trad = new Traduction();
-				trad.setFilename(fileName);
+
 				trad.setSequence(sequence);
 				trad.setId(tradId);
 				
 				// The strings now :
-				preparedStatement  = connexion.prepareStatement("SELECT * FROM strings WHERE traduction_id = ?");
-				preparedStatement.setInt(1, trad.getId());
+				HashMap<String,ArrayList<String>> mapString = new HashMap<>();
+				
+				preparedStatement  = connexion.prepareStatement("SELECT * FROM string_translate WHERE sequence_id = ?");
+				preparedStatement.setInt(1, tradId);
+				
 				resultats = preparedStatement.executeQuery();
-				String language = null;
-				language = resultat.getString("language_str");
-
-				ArrayList<String> allStrings = new ArrayList<>();
+				
+				ArrayList<String> french = new ArrayList<>();
+				ArrayList<String> english = new ArrayList<>();
+				
 				while (resultats.next()) {
+				
+					String language = resultat.getString("language_str");
+					String string   = resultats.getString("content_string");
 					
-					String string = resultats.getString("translated_str");
-					allStrings.add(string);
-					
+					switch(language) {
+					case "FRENCH" : 
+						french.add(string);
+						break;
+					case "ENGLISH" :
+						english.add(string);
+						break;
+					default :
+						System.err.println("Error language of file");
+						break;
+					}
+										
 				}
-				trad.setStrings(allStrings);
-				trad.setLanguage(language);
-
-
+				
+				mapString.put("FRENCH",french);
+				mapString.put("ENGLISH",english);
+				trad.setMapString(mapString);
+				
 				traductions.add(trad);
 			}
 		} 

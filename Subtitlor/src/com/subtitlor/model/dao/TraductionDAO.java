@@ -2,6 +2,7 @@ package com.subtitlor.model.dao;
 
 import java.util.ArrayList;
 
+import com.subtitlor.model.entity.FileToTranslate;
 import com.subtitlor.model.entity.Traduction;
 
 /**
@@ -12,7 +13,7 @@ import com.subtitlor.model.entity.Traduction;
 public interface TraductionDAO {
 
 
-	void add( Traduction trad) throws DaoException;
+	void add( Traduction trad, FileToTranslate ftr) throws DaoException;
 	ArrayList<Traduction> list(String filename) throws DaoException;
 
 }
