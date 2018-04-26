@@ -54,7 +54,7 @@ public class DataSourceDao implements TraductionDAO {
 	@Override
 	public void add(Traduction trad) throws DaoException {
 		// TODO Auto-generated method stub
-
+//INSERT INTO file_translate( file_name,date_file) VALUES ( 'sdfgfdsg', '2001-10-05') RETURNING id;
 	}
 
 	@Override

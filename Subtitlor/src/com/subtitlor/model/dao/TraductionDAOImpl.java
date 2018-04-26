@@ -25,7 +25,7 @@ public class TraductionDAOImpl implements TraductionDAO {
 															"ON CONFLICT (id) DO UPDATE " + 
 															"SET sequence = excluded.sequence;"); 
 					    
-			
+	//INSERT INTO file_translate( file_name,date_file) VALUES ( 'sdfgfdsg', '2001-10-05') RETURNING id;		
 			preparedStatement.setInt(1, trad.getId());
 			preparedStatement.setString(2, trad.getFilename());
 			preparedStatement.setString(3, trad.getSequence());
