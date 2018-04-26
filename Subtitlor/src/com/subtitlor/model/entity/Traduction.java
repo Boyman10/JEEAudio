@@ -24,9 +24,8 @@ public class Traduction {
 	}
 
 
-	public Traduction(int id, String sequence, HashMap<String, ArrayList<String>> mapString) {
+	public Traduction(String sequence, HashMap<String, ArrayList<String>> mapString) {
 		super();
-		this.id = id;
 		this.sequence = sequence;
 		this.mapString = mapString;
 	}
