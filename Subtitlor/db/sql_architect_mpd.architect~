@@ -4,7 +4,7 @@
  <print-settings numCopies="1" zoom="1.0" pageNumbersPrinted="true" orientation="1" paperWidth="612.0" paperHeight="792.0" leftBorder="50.0" rightBorder="50.0" topBorder="50.0" bottomBorder="50.0" />
  <project-data-sources>
   <data-source id="DS0">
-   <property key="Logical" value="Postgresql" />
+   <property key="Logical" value="(Target Database)" />
    <property key="Connection Type" value="PostgreSQL" />
    <property key="JDBC URL" value="jdbc:postgresql://localhost:5432/struts_app" />
    <property key="UID" value="test" />
@@ -15,7 +15,7 @@
    <property key="ca.sqlpower.architect.etl.kettle.repos.login" value="" />
    <property key="ca.sqlpower.architect.etl.kettle.repos.password" value="" />
   </data-source>
-  <data-source id="DS0">
+  <data-source id="DS2">
    <property key="Connection Type" value="PostgreSQL" />
    <property key="Logical" value="Postgresql" />
    <property key="JDBC URL" value="jdbc:postgresql://localhost:5432/struts_app" />
@@ -29,7 +29,7 @@
   </data-source>
  </project-data-sources>
  <source-databases>
-  <database id="DB0" populated="true" UUID="92eb5299-6cb6-4d84-bfe2-0fefec390d6c" dbcs-ref="DS0" name="Postgresql" physicalName="Postgresql" >
+  <database id="DB0" populated="true" UUID="92eb5299-6cb6-4d84-bfe2-0fefec390d6c" dbcs-ref="DS2" name="Postgresql" physicalName="Postgresql" >
    <catalog id="CAT1" populated="true" UUID="461677b0-252e-41f4-8916-40075edc161e" name="struts_app" nativeTerm="database" physicalName="struts_app" >
     <schema id="SCH2" populated="false" UUID="a69130a1-4272-41a8-a838-1c0466a3617e" name="information_schema" nativeTerm="schema" physicalName="information_schema" >
     </schema>
@@ -37,7 +37,7 @@
     </schema>
     <schema id="SCH4" populated="false" UUID="21a3bc36-0678-408e-ba06-6a309cdfb07e" name="pg_toast_temp_1" nativeTerm="schema" physicalName="pg_toast_temp_1" >
     </schema>
-    <schema id="SCH5" populated="false" UUID="d8564a6a-d9a4-4ae5-aa05-207c16bcd712" name="public" nativeTerm="schema" physicalName="public" >
+    <schema id="SCH5" populated="true" UUID="d8564a6a-d9a4-4ae5-aa05-207c16bcd712" name="public" nativeTerm="schema" physicalName="public" >
     </schema>
    </catalog>
    <relationships>
@@ -128,9 +128,9 @@
  <liquibase-settings useSeparateChangeSets="false" generateId="false" idStart="1"/>
  <create-kettle-job-settings filePath="" jobName="" schemaName="" kettleJoinType="0" savingToFile="true" />
  <play-pen zoom="1.0" viewportX="0" viewportY="0" relationship-style="rectilinear" names-displayLogicalNames="true" showPrimaryTag="true" showForeignTag="true" showAlternateTag="true" columnVisibility="ALL" relationshipLabelVisibility="true">
-  <table-pane table-ref="TAB7" x="82" y="92" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
-  <table-pane table-ref="TAB13" x="40" y="339" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
-  <table-pane table-ref="TAB19" x="419" y="234" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB7" x="82" y="92" bgColor="0xdfedce" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB13" x="40" y="339" bgColor="0xfbdabb" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB19" x="419" y="234" bgColor="0xbfd6ff" fgColor="0x000000" rounded="false" dashed="false"/>
   <table-link relationship-ref="REL28" pkConnection="0.9647887323943662" fkConnection="0.03546099290780142" rLineColor="0x333333" pkLabelText="" fkLabelText="" orientation="72"/>
   <table-link relationship-ref="REL26" pkConnection="0.48717948717948717" fkConnection="0.5070422535211268" rLineColor="0x333333" pkLabelText="" fkLabelText="" orientation="132"/>
  </play-pen>

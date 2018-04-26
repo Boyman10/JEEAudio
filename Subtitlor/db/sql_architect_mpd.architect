@@ -51,10 +51,10 @@
     <column id="COL8" populated="true" UUID="dc6ee573-36ff-49ad-a5e5-be413ba8a21b" autoIncrement="false" autoIncrementSequenceName="file_translate_id_seq" defaultValue="" name="file_id" nullable="0" physicalName="file_id" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
      <remarks></remarks>
     </column>
-    <column id="COL9" populated="true" UUID="23ea195f-6bad-494f-ad4c-05a2abed8897" autoIncrement="false" autoIncrementSequenceName="file_translate_date_file_seq" defaultValue="" name="Date" nullable="0" physicalName="date_file" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="91" userDefinedTypeUUID="ee349be3-6af2-46e1-b305-975f5354b009" >
+    <column id="COL9" populated="true" UUID="23ea195f-6bad-494f-ad4c-05a2abed8897" autoIncrement="false" autoIncrementSequenceName="file_translate_date_file_seq" defaultValue="" name="date_file" nullable="0" physicalName="date_file" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="91" userDefinedTypeUUID="ee349be3-6af2-46e1-b305-975f5354b009" >
      <remarks></remarks>
     </column>
-    <column id="COL10" populated="true" UUID="531e192d-4440-40e4-93e8-f8266479b2e9" autoIncrement="false" autoIncrementSequenceName="file_translate_file_name_seq" defaultValue="" name="File name" nullable="0" physicalName="file_name" precision="100" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL10" populated="true" UUID="531e192d-4440-40e4-93e8-f8266479b2e9" autoIncrement="false" autoIncrementSequenceName="file_translate_file_name_seq" defaultValue="" name="file_name" nullable="0" physicalName="file_name" precision="100" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks></remarks>
     </column>
     </folder>
@@ -63,7 +63,7 @@
     <folder id="FOLTAB72" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
     </folder>
     <folder id="FOLTAB74" populated="true" name="Indices" physicalName="Indices" type="4">
-    <index id="IDX11" populated="true" UUID="31863786-9b5b-472a-88e6-2b23ac5a811c" clustered="false" name="file_id" physicalName="id" primaryKeyIndex="true" unique="false" >
+    <index id="IDX11" populated="true" UUID="31863786-9b5b-472a-88e6-2b23ac5a811c" clustered="false" name="file_id" physicalName="file_id" primaryKeyIndex="true" unique="false" >
      <index-column id="IDC12" populated="true" UUID="b173038b-d4ee-44ca-9850-e309beb854ea" ascendingOrDescending="UNSPECIFIED" column-ref="COL8" name="file_id" physicalName="file_id" />
     </index>
    </folder>
@@ -86,7 +86,7 @@
     <folder id="FOLTAB132" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
     </folder>
     <folder id="FOLTAB134" populated="true" name="Indices" physicalName="Indices" type="4">
-    <index id="IDX17" populated="true" UUID="e96085a6-653b-4544-a051-67fd6f853db4" clustered="false" name="sequence_id" physicalName="sequence_pk" primaryKeyIndex="true" unique="false" >
+    <index id="IDX17" populated="true" UUID="e96085a6-653b-4544-a051-67fd6f853db4" clustered="false" name="sequence_id" physicalName="sequence_id" primaryKeyIndex="true" unique="false" >
      <index-column id="IDC18" populated="true" UUID="43f97ba1-1795-4a5a-b4b7-a222d0188665" ascendingOrDescending="UNSPECIFIED" column-ref="COL14" name="sequence_id" physicalName="sequence_id" />
     </index>
    </folder>
@@ -109,7 +109,7 @@
     <folder id="FOLTAB192" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
     </folder>
     <folder id="FOLTAB194" populated="true" name="Indices" physicalName="Indices" type="4">
-    <index id="IDX23" populated="true" UUID="6c642c94-97b1-4136-935e-6e0b33744cd3" clustered="false" name="string_translate_id" physicalName="id" primaryKeyIndex="true" unique="false" >
+    <index id="IDX23" populated="true" UUID="6c642c94-97b1-4136-935e-6e0b33744cd3" clustered="false" name="string_translate_id" physicalName="string_translate_id" primaryKeyIndex="true" unique="false" >
      <index-column id="IDC24" populated="true" UUID="b9c7445e-f233-448d-9267-aafefee266f2" ascendingOrDescending="UNSPECIFIED" column-ref="COL20" name="sequence_id" physicalName="sequence_id" />
      <index-column id="IDC25" populated="true" UUID="2789f5e7-ddfe-4888-bf06-21144faf1806" ascendingOrDescending="UNSPECIFIED" column-ref="COL21" name="language_string" physicalName="language_string" />
     </index>
